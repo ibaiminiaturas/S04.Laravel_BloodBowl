@@ -82,20 +82,26 @@ class TeamPlayerController extends Controller
      */
     public function edit(Team $team, TeamPlayer $player)
     {
+        $playerTypes = PlayerType::where('roster_id', $team->roster_id)->get();
         return view('team_players.edit', [
-            'team' => $team,
-            'player' => $player,
-            'playerTypes' => PlayerType::where('roster_id', $team->roster_id)->get(),
-             'editableFields' => ['name']
+          'player' => $player,
+          'team' => $team,
+          'playerTypes' => $playerTypes,
+          'editableFields' => ['name',  'experience'], // prueba con todos editables
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Team $team, TeamPlayer $player)
     {
+        $player->name = $request->input('name');
+        $player->experience = $request->input('experience');
 
+        $player->save();
+
+        return redirect()->route('teams.edit', $team)->with('success', 'Jugador ' . $player->name .  ' actualizado correctamente.');
     }
 
     /**

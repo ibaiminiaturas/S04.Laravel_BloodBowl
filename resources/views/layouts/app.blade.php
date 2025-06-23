@@ -8,14 +8,21 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
 
-    <nav class="bg-blue-700 p-4 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            <a class="font-bold text-xl">Blood Bowl</a>
-            <div>
-                <a href="{{ route('coaches.index') }}" class="hover:underline">Coaches</a>
-            </div>
+    <<nav class="bg-blue-700 p-4 text-white">
+    <div class="container mx-auto flex justify-between items-center">
+        <a class="font-bold text-xl" href="#">Blood Bowl</a>
+        <div class="flex space-x-3">
+            <a href="{{ route('coaches.index') }}"
+               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
+                Coaches
+            </a>
+            <a href="{{ route('teams.index') }}"
+               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
+                Teams
+            </a>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <main class="container mx-auto p-4">
         @yield('content')

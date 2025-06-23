@@ -83,6 +83,7 @@ class TeamPlayerController extends Controller
     public function edit(Team $team, TeamPlayer $player)
     {
         $playerTypes = PlayerType::where('roster_id', $team->roster_id)->get();
+
         return view('team_players.edit', [
           'player' => $player,
           'team' => $team,

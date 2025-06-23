@@ -67,7 +67,19 @@ class TeamController extends Controller
         $rosters = Roster::all();
         $playerTypes = $team->roster->playerTypes;
 
-        return view('teams.edit', compact('team', 'rosters', 'coaches', 'playerTypes'));
+        $existingCounts = $team->players()
+            ->selectRaw('player_type_id, COUNT(*) as total')
+            ->groupBy('player_type_id')
+            ->pluck('total', 'player_type_id');
+        // Calculamos disponibilidad
+
+        foreach ($playerTypes as $type) {
+            $used = $existingCounts[$type->id] ?? 0;
+            $availableSlots[$type->id] = $type->max_per_team - $used;
+        }
+
+
+        return view('teams.edit', compact('team', 'rosters', 'coaches', 'playerTypes', 'availableSlots'));
     }
 
     /**

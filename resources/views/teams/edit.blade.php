@@ -1,154 +1,153 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto mt-6 flex gap-6">
-  <!-- Formulario equipo -->
-  <div class="w-2/5 bg-white p-6 rounded shadow min-w-[320px]">
-    <h1 class="text-2xl font-bold mb-6">Editar Equipo: {{ $team->name }}</h1>
+<div class="max-w-7xl mx-auto mt-6 px-4">
 
-    <form action="{{ route('teams.update', $team) }}" method="POST" class="space-y-6">
-      @csrf
-      @method('PUT')
+  <!-- Formulario para cambiar nombre equipo -->
+  <form action="{{ route('teams.update', $team) }}" method="POST" class="mb-6 bg-white p-6 rounded shadow flex flex-wrap items-center gap-6">
+    @csrf
+    @method('PUT')
 
-      <!-- Nombre -->
-      <div>
-        <label for="team_name" class="block font-semibold mb-1">Nombre</label>
-        <input
-          type="text"
-          id="team_name"
-          name="team_name"
-          value="{{ old('team_name', $team->name) }}"
-          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          maxlength="100"
-          required
-        >
-      </div>
-
-      <!-- Coach -->
-      <div class="mb-4">
-        <label class="block font-semibold mb-1">Entrenador</label>
-        <p class="p-2 bg-gray-100 rounded">{{ $team->coach->name }}</p>
-      </div>
-
-      <!-- Roster -->
-      <div class="mb-4">
-        <label class="block font-semibold mb-1">Roster</label>
-        <p class="p-2 bg-gray-100 rounded">{{ $team->roster->name }}</p>
-      </div>
-
-      <!-- Team Value -->
-      <div>
-        <label for="team_value" class="block font-semibold mb-1">Valor del equipo</label>
-        <p class="p-2 bg-gray-100 rounded">{{ $team->team_value }}</p>
-        @error('team_value')
-          <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-        @enderror
-      </div>
-
-      <!-- Gold Remaining -->
-      <div>
-        <label for="gold_remaining" class="block font-semibold mb-1">Oro restante</label>
-        <p class="p-2 bg-gray-100 rounded">{{ $team->gold_remaining }}</p>
-      </div>
-
-      <div>
-        <button
-          type="submit"
-          class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-        >
-          Guardar cambios
-        </button>
-        <a href="{{ route('teams.index') }}" class="ml-4 text-gray-600 hover:underline">Cancelar</a>
-      </div>
-    </form>
-  </div>
-
-  <!-- Sección derecha: jugadores -->
-  <div class="w-3/5 max-w-full bg-white p-4 rounded shadow min-w-[320px]">
-    <h2 class="text-xl font-bold mb-4 text-center">Jugadores</h2>
-
-    <div class="overflow-x-auto">
-      <table class="min-w-full border table-auto w-full break-words">
-        <thead>
-            <tr class="bg-gray-400">
-            <th class="border px-2 py-1">Nombre</th>
-            <th class="border px-2 py-1">Número</th>
-            <th class="border px-2 py-1">Experiencia</th>
-            <th class="border px-2 py-1">Tipo de jugador</th>
-            <th class="border px-2 py-1">MA</th>
-            <th class="border px-2 py-1">ST</th>
-            <th class="border px-2 py-1">AG</th>
-            <th class="border px-2 py-1">PA</th>
-            <th class="border px-2 py-1">AV</th>
-            <th class="border px-2 py-1">Coste</th>
-            <th class="border px-2 py-1">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($team->players as $player)
-           <tr class="{{ $loop->even ? 'bg-gray-200' : 'bg-gray-50' }}">
-            <td class="border px-2 py-1">{{ $player->name }}</td>
-            <td class="border px-2 py-1">{{ $player->jersey_number }}</td>
-            <td class="border px-2 py-1">{{ $player->experience }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->name }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->movement }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->strength . '+' }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->agility . '+' }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->passing . '+' }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->armor . '+' }}</td>
-            <td class="border px-2 py-1">{{ $player->playerType->cost }}</td>
-            <td class="border px-2 py-1">
-              <div class="flex gap-2 justify-center">
-                <a href="{{ route('team_players.edit', [$team, $player]) }}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
-                  Editar
-                </a>
-
-                <form action="{{ route('team_players.destroy', [$team, $player]) }}"
-                      method="POST"
-                      onsubmit="return confirm('¿Eliminar jugador {{ $player->name }}?')">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">
-                    Eliminar
-                  </button>
-                </form>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+    <!-- Contenedor input + label -->
+    <div class="flex flex-col flex-grow min-w-[220px] max-w-xl">
+      <label for="team_name" class="text-gray-600 font-semibold mb-1">Nombre del equipo</label>
+      <input
+        id="team_name"
+        name="team_name"
+        type="text"
+        value="{{ old('team_name', $team->name) }}"
+        maxlength="100"
+        required
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+      >
+      @error('team_name')
+        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+      @enderror
     </div>
 
-    <!-- Mensajes -->
+    <!-- Botón actualizado para que esté alineado verticalmente con input -->
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 whitespace-nowrap self-end"
+    >
+      Actualizar nombre
+    </button>
+
+    <!-- Otros datos del equipo a la derecha -->
+    <div class="flex flex-wrap gap-6 ml-auto min-w-[320px]">
+      <div class="flex flex-col min-w-[150px]">
+        <span class="text-gray-600 font-semibold mb-1">Entrenador</span>
+        <span class="p-2 bg-gray-100 rounded truncate max-w-xs">{{ $team->coach->name }}</span>
+      </div>
+      <div class="flex flex-col min-w-[150px]">
+        <span class="text-gray-600 font-semibold mb-1">Roster</span>
+        <span class="p-2 bg-gray-100 rounded truncate max-w-xs">{{ $team->roster->name }}</span>
+      </div>
+      <div class="flex flex-col min-w-[150px]">
+        <span class="text-gray-600 font-semibold mb-1">Valor equipo</span>
+        <span class="p-2 bg-gray-100 rounded">{{ $team->team_value }}</span>
+      </div>
+      <div class="flex flex-col min-w-[150px]">
+        <span class="text-gray-600 font-semibold mb-1">Oro restante</span>
+        <span class="p-2 bg-gray-100 rounded">{{ $team->gold_remaining }}</span>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+
+  <!-- Tabla jugadores -->
+  <div class="bg-white p-4 rounded shadow overflow-x-auto">
+    <h2 class="text-xl font-bold mb-4 text-center">Jugadores</h2>
+
     @if(session('success'))
-      <div class="mt-4 bg-green-200 text-green-800 p-2 rounded">
+      <div class="bg-green-200 text-green-800 p-2 rounded mb-4">
         {{ session('success') }}
       </div>
     @endif
 
     @error('not_enough_spots')
-      <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
     @enderror
 
     @error('gold_remaining')
-      <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
     @enderror
 
-    <!-- Botón para añadir jugador -->
-    <button onclick="document.getElementById('addPlayerForm').classList.toggle('hidden')" 
-            class="mt-6 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    <table class="min-w-full border table-fixed w-full text-sm text-left">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="border px-2 py-1 max-w-[140px] truncate" title="Nombre">Nombre</th>
+          <th class="border px-2 py-1 max-w-[50px] truncate" title="Número">Número</th>
+          <th class="border px-2 py-1 max-w-[80px] truncate" title="Experiencia">Experiencia</th>
+          <th class="border px-2 py-1 max-w-[140px] truncate" title="Tipo de jugador">Tipo de jugador</th>
+          <th class="border px-2 py-1 max-w-[40px]" title="MA">MA</th>
+          <th class="border px-2 py-1 max-w-[40px]" title="ST">ST</th>
+          <th class="border px-2 py-1 max-w-[40px]" title="AG">AG</th>
+          <th class="border px-2 py-1 max-w-[40px]" title="PA">PA</th>
+          <th class="border px-2 py-1 max-w-[40px]" title="AV">AV</th>
+          <th class="border px-2 py-1 max-w-[60px]" title="Coste">Coste</th>
+          <th class="border px-2 py-1 min-w-[260px]" title="Skills">Skills</th>
+          <th class="border px-2 py-1 min-w-[140px]" title="Acciones">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($team->players as $player)
+          <tr class="hover:bg-gray-50 align-top">
+            <td class="border px-2 py-1 max-w-[140px] break-words whitespace-normal">{{ $player->name }}</td>
+            <td class="border px-2 py-1 max-w-[50px] text-center">{{ $player->jersey_number }}</td>
+            <td class="border px-2 py-1 max-w-[80px] text-center">{{ $player->experience }}</td>
+            <td class="border px-2 py-1 max-w-[140px] break-words whitespace-normal">{{ $player->playerType->name }}</td>
+            <td class="border px-2 py-1 max-w-[40px] text-center">{{ $player->playerType->movement }}</td>
+            <td class="border px-2 py-1 max-w-[40px] text-center">{{ $player->playerType->strength . '+'}}</td>
+            <td class="border px-2 py-1 max-w-[40px] text-center">{{ $player->playerType->agility . '+'}}</td>
+            <td class="border px-2 py-1 max-w-[40px] text-center">{{ $player->playerType->passing . '+'}}</td>
+            <td class="border px-2 py-1 max-w-[40px] text-center">{{ $player->playerType->armor . '+'}}</td>
+            <td class="border px-2 py-1 max-w-[60px] text-center">{{ $player->playerType->cost }}</td>
+            <td class="border px-2 py-1 min-w-[260px] break-words">
+              <div class="flex flex-wrap gap-1">
+                @foreach ($player->playerType->skills as $skill)
+                  <span
+                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded whitespace-nowrap"
+                    title="{{ $skill->name }}"
+                  >
+                    {{ $skill->name }}
+                  </span>
+                @endforeach
+              </div>
+            </td>
+            <td class="border px-2 py-1 min-w-[140px] flex gap-2 justify-center whitespace-nowrap">
+              <a href="{{ route('team_players.edit', [$team, $player]) }}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                Editar
+              </a>
+
+              <form action="{{ route('team_players.destroy', [$team, $player]) }}" method="POST" onsubmit="return confirm('¿Eliminar jugador {{ $player->name }}?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">
+                  Eliminar
+                </button>
+              </form>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+
+    <button
+      onclick="document.getElementById('addPlayerForm').classList.toggle('hidden')"
+      class="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    >
       Añadir jugador
     </button>
 
-    <!-- Formulario oculto -->
     <div id="addPlayerForm" class="mt-4 hidden">
       @include('team_players._form', [
-          'player' => null,
-          'team' => $team,
-          'playerTypes' => $playerTypes,
-          'editableFields' => ['name', 'jersey_number', 'experience', 'player_type_id']
+        'player' => null,
+        'team' => $team,
+        'playerTypes' => $playerTypes,
+        'editableFields' => ['name', 'jersey_number', 'experience', 'player_type_id']
       ])
     </div>
   </div>

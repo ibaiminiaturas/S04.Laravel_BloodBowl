@@ -29,7 +29,7 @@ class PlayerType extends Model
     {
         return $this->belongsToMany(
             Skill::class,
-            'player_type_skill',
+            'player_type_skills',
             'player_type_id',
             'skill_id'
         );

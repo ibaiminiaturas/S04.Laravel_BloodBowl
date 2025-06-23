@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Models\TeamPlayer;
 use App\Models\Roster;
 use App\Models\Coach;
+use App\Models\Skill;
 use Illuminate\Validation\Rule;
 
 class TeamController extends Controller
@@ -75,16 +76,15 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $validated = $request->validate([
-            'name' => ['required', 'max:100', Rule::unique('teams', 'name')->ignore($team->id)],
-            'team_value' => ['required', 'integer', 'min:0'],
-            'gold_remaining' => ['required', 'integer', 'min:0'],
+            'team_name' => ['required', 'max:100', Rule::unique('teams', 'name')->ignore($team->id)]
         ]);
+        $team->name = $validated['team_name'];
+        $team->save();
 
-        $team->update($validated);
 
-        return redirect()
-            ->route('teams.index', $team)
-            ->with('success', 'Equipo "' . $team->name . '" actualizado correctamente.');
+        return back()->with('success', 'Equipo "' . $team->name . '" actualizado correctamente.');
+
+
     }
     /**
      * Remove the specified resource from storage.

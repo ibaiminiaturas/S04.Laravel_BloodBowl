@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Team extends Model
+{
+    protected $fillable = [
+        'name',
+        'coach_id',
+        'roster_id',
+        'gold_remaining',
+        'team_value',
+    ];
+
+    public function coach()
+    {
+        return $this->belongsTo(Coach::class);
+    }
+
+    public function roster()
+    {
+        return $this->belongsTo(Roster::class);
+    }
+}

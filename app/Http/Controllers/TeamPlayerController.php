@@ -55,7 +55,7 @@ class TeamPlayerController extends Controller
         }
 
         $team->gold_remaining -=  $playerType->cost;
-        $team->update(['gold_remaining' => $team->gold_remaining]) ;
+        $team->save();
 
         $team->players()->create($validated);
 
@@ -90,10 +90,16 @@ class TeamPlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TeamPlayer $teamPlayer)
+    public function destroy(Team $team, TeamPlayer $player)
     {
-        $teamPlayer->delete();
+        $playerType = $player->playerType; // relación playerType()
+        if ($playerType) {
+            $team->gold_remaining += $playerType->cost;
+            $team->save();
+        }
 
-        return back()->with('success', 'Jugador ' . $teamPlayer->name . ' eliminado.');
+        $player->delete();
+
+        return back()->with('success', 'Jugador ' . $player->name . ' eliminado con exito');
     }
 }

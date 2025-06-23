@@ -65,6 +65,7 @@ class TeamController extends Controller
         $coaches = Coach::all();
         $rosters = Roster::all();
         $playerTypes = $team->roster->playerTypes;
+
         return view('teams.edit', compact('team', 'rosters', 'coaches', 'playerTypes'));
     }
 

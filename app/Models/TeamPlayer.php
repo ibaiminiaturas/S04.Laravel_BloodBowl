@@ -19,7 +19,7 @@ class TeamPlayer extends Model
         return $this->belongsTo(PlayerType::class);
     }
 
-    public function Team()
+    public function team()
     {
         return $this->belongsTo(Team::class);
     }

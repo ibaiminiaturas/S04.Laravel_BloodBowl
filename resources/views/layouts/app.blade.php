@@ -12,6 +12,10 @@
     <div class="container mx-auto flex justify-between items-center">
         <a class="font-bold text-xl" href="#">Blood Bowl</a>
         <div class="flex space-x-3">
+            <a href="{{ route('rosters.index') }}"
+               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
+                Rosters Info
+            </a>
             <a href="{{ route('coaches.index') }}"
                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
                 Coaches

@@ -5,6 +5,7 @@ use App\Http\Controllers\PlayerTypeController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamPlayerController;
+use App\Http\Controllers\RosterInfoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +24,5 @@ Route::delete('/teams/{team}/players/{player}', [TeamPlayerController::class, 'd
 
 Route::get('/teams/{team}/players/{player}/edit', [TeamPlayerController::class, 'edit'])->name('team_players.edit');
 Route::put('/teams/{team}/players/{player}', [TeamPlayerController::class, 'update'])->name('team_players.update');
+
+Route::get('/rosters/info', [RosterInfoController::class, 'index'])->name('rosters.index');

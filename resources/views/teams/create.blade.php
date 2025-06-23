@@ -22,7 +22,7 @@
             <select name="coach_id" id="coach_id"
                     class="mt-1 block w-full border-gray-300 rounded shadow-sm focus:ring focus:ring-indigo-200"
                     required>
-                <option value="">Selecciona un coach</option>
+                <option value="">Selecciona un entrenador</option>
                 @foreach($coaches as $coach)
                     <option value="{{ $coach->id }}" {{ old('coach_id') == $coach->id ? 'selected' : '' }}>
                         {{ $coach->name }} ({{ $coach->email }})

@@ -16,4 +16,11 @@ class RosterInfoController extends Controller
         return view('rosters.index', compact('rosters'));
 
     }
+
+    public function skills()
+    {
+        $skills = Skill::paginate(15);
+
+        return view('rosters.skills', compact('skills'));
+    }
 }

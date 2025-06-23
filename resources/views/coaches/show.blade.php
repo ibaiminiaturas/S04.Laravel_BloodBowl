@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container mx-auto p-4 max-w-md bg-white rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">Detalles del Coach</h1>
+    <h1 class="text-2xl font-bold mb-4">Detalles del Entrenador</h1>
 
     <p><strong>Nombre:</strong> {{ $coach->name }}</p>
     <p><strong>Email:</strong> {{ $coach->email }}</p>

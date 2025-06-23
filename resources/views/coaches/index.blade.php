@@ -3,10 +3,10 @@
 
 @section('content')
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Coaches</h1>
+    <h1 class="text-2xl font-bold mb-4">Entrenadores</h1>
 
     <a href="{{ route('coaches.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4 inline-block">
-        Crear Coach
+        Crear Entrenador
     </a>
 
     @if(session('success'))

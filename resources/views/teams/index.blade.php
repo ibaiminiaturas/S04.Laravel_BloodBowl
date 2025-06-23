@@ -19,7 +19,7 @@
         <thead class="bg-gray-100">
             <tr>
                 <th class="border px-4 py-2 text-left">Nombre</th>
-                <th class="border px-4 py-2 text-left">Coach</th>
+                <th class="border px-4 py-2 text-left">Entrenador</th>
                 <th class="border px-4 py-2 text-left">Roster</th>
                 <th class="border px-4 py-2 text-right">Valor</th>
                 <th class="border px-4 py-2 text-right">Oro</th>

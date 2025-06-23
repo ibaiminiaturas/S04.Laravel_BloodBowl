@@ -66,7 +66,8 @@
     >
       <option value="">Selecciona tipo</option>
       @foreach ($playerTypes as $type)
-        @if($availableSlots[$type->id] > 0)
+      @if(request()->routeIs('teams.edit'))
+        @if(isset($availableSlots) && isset($availableSlots[$type->id]) && $availableSlots[$type->id] > 0)
         <option
           value="{{ $type->id }}"
           @selected(old('player_type_id', $player?->player_type_id) == $type->id)
@@ -74,8 +75,18 @@
           {{ $type->name }} - {{ $type->cost }} oro
 
           ({{ $availableSlots[$type->id] ?? 0 }} disponibles de {{ $type->max_per_team }})
+
         </option>
-         @endif
+        @endif
+        @elseif (request()->routeIs('team_players.edit'))
+        <option
+          value="{{ $type->id }}"
+          @selected(old('player_type_id', $player?->player_type_id) == $type->id)
+        >
+          {{ $type->name }} - {{ $type->cost }} oro
+        </option>
+
+    @endif
       @endforeach
     </select>
   </div>

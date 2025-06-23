@@ -26,3 +26,4 @@ Route::get('/teams/{team}/players/{player}/edit', [TeamPlayerController::class, 
 Route::put('/teams/{team}/players/{player}', [TeamPlayerController::class, 'update'])->name('team_players.update');
 
 Route::get('/rosters/info', [RosterInfoController::class, 'index'])->name('rosters.index');
+Route::get('/rosters/skills', [RosterInfoController::class, 'skills'])->name('rosters.skills');

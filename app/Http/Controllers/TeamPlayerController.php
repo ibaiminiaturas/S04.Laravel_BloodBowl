@@ -80,9 +80,14 @@ class TeamPlayerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Team $team, TeamPlayer $player)
     {
-        //
+        return view('team_players.edit', [
+            'team' => $team,
+            'player' => $player,
+            'playerTypes' => PlayerType::where('roster_id', $team->roster_id)->get(),
+             'editableFields' => ['name']
+        ]);
     }
 
     /**

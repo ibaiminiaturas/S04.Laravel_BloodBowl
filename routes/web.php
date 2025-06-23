@@ -20,3 +20,6 @@ Route::resource('team_players', TeamPlayerController::class)->only(['store', 'up
 
 Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store'])->name('team_players.store');
 Route::delete('/teams/{team}/players/{player}', [TeamPlayerController::class, 'destroy'])->name('team_players.destroy');
+
+Route::get('/teams/{team}/players/{player}/edit', [TeamPlayerController::class, 'edit'])->name('team_players.edit');
+Route::put('/teams/{team}/players/{player}', [TeamPlayerController::class, 'update'])->name('team_players.update');

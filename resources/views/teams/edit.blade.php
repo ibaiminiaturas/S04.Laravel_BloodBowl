@@ -98,16 +98,21 @@
       <td class="border px-2 py-1">{{ $player->playerType->passing . '+'}}</td>
       <td class="border px-2 py-1">{{ $player->playerType->armor . '+'}}</td>
       <td class="border px-2 py-1">{{ $player->playerType->cost }}</td>
-      <td class="border px-2 py-1">
-            <form action="{{ route('team_players.destroy', [$team, $player]) }}" method="POST" onsubmit="return confirm('¿Eliminar jugador {{ $player->name }}?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">
-                Eliminar
-                </button>
-            </form>
-        </td>
+<td class="border px-2 py-1 flex gap-2 justify-center">
+  <a href="{{ route('team_players.edit', [$team, $player]) }}"
+     class="text-blue-600 hover:text-blue-800 font-semibold">
+    Editar
+  </a>
 
+  <form action="{{ route('team_players.destroy', [$team, $player]) }}" method="POST" onsubmit="return confirm('¿Eliminar jugador {{ $player->name }}?')">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">
+          Eliminar
+      </button>
+  </form>
+</td>
+        
       </td>
     </tr>
     @endforeach
@@ -136,34 +141,9 @@
       Añadir jugador
     </button>
 
-    <!-- Formulario oculto para añadir jugador -->
-    <form id="addPlayerForm" action="{{ route('team_players.store', $team) }}" method="POST" class="mt-4 hidden border p-4 rounded bg-gray-50">
-      @csrf
-      <div class="mb-2">
-        <label for="name" class="block font-semibold">Nombre:</label>
-        <input type="text" name="name" id="name" class="border p-1 w-full text-left" required>
-      </div>
-      <div class="mb-2">
-        <label for="jersey_number" class="block font-semibold">Número de camiseta:</label>
-        <input type="number" name="jersey_number" id="jersey_number" class="border p-1 w-full text-left" min="1" max="99" required>
-      </div>
-      <div class="mb-2">
-        <label for="experience" class="block font-semibold">Experiencia:</label>
-        <input type="number" name="experience" id="experience" class="border p-1 w-full text-left" min="0" max="10" required>
-      </div>
-      <div class="mb-2">
-        <label for="player_type_id" class="block font-semibold">Tipo de jugador:</label>
-        <select name="player_type_id" id="player_type_id" class="border p-1 w-full text-left" required>
-          <option value="">Selecciona tipo</option>
-          @foreach ($playerTypes as $type)
-            <option value="{{ $type->id }}">{{ $type->name }} - {{$type->cost}} Gold</option>
-          @endforeach
-        </select>
-      </div>
-      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
-        Guardar jugador
-      </button>
-    </form>
+    <div id="addPlayerForm" class="mt-4 hidden">
+        @include('team_players._form', ['player' => null, 'team' => $team, 'playerTypes' => $playerTypes, 'editableFields' => ['name', 'jersey_number', 'experience', 'player_type_id']])
+    </div>
   </div>
 </div>
 @endsection

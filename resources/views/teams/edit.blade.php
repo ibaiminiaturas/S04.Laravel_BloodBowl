@@ -42,15 +42,7 @@
       <!-- Team Value -->
       <div>
         <label for="team_value" class="block font-semibold mb-1">Valor del equipo</label>
-        <input
-          type="number"
-          id="team_value"
-          name="team_value"
-          value="{{ old('team_value', $team->team_value) }}"
-          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          min="0"
-          required
-        >
+         <p class="p-2 bg-gray-100 rounded">{{ $team->team_value }}</p>
         @error('team_value')
           <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
         @enderror
@@ -59,15 +51,7 @@
       <!-- Gold Remaining -->
       <div>
         <label for="gold_remaining" class="block font-semibold mb-1">Oro restante</label>
-        <input
-          type="number"
-          id="gold_remaining"
-          name="gold_remaining"
-          value="{{ old('gold_remaining', $team->gold_remaining) }}"
-          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          min="0"
-          required
-        >
+        <p class="p-2 bg-gray-100 rounded">{{ $team->gold_remaining }}</p>
         @error('gold_remaining')
           <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
         @enderror
@@ -119,6 +103,14 @@
       <td class="border px-2 py-1">{{ $player->playerType->armor . '+'}}</td>
       <td class="border px-2 py-1">{{ $player->playerType->cost }}</td>
       <td class="border px-2 py-1">
+            <form action="{{ route('team_players.destroy', [$team, $player]) }}" method="POST" onsubmit="return confirm('¿Eliminar jugador {{ $player->name }}?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">
+                Eliminar
+                </button>
+            </form>
+        </td>
         <!-- Aquí podrías poner editar o eliminar jugador -->
       </td>
     </tr>
@@ -153,7 +145,7 @@
         <select name="player_type_id" id="player_type_id" class="border p-1 w-full text-left" required>
           <option value="">Selecciona tipo</option>
           @foreach ($playerTypes as $type)
-            <option value="{{ $type->id }}">{{ $type->name }}</option>
+            <option value="{{ $type->id }}">{{ $type->name }} - {{$type->cost}} Gold</option>
           @endforeach
         </select>
       </div>

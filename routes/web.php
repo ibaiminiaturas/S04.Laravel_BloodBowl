@@ -18,5 +18,5 @@ Route::resource('teams', TeamController::class);
 
 Route::resource('team_players', TeamPlayerController::class)->only(['store', 'update', 'destroy']);
 
-// web.php
 Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store'])->name('team_players.store');
+Route::delete('/teams/{team}/players/{player}', [TeamPlayerController::class, 'destroy'])->name('team_players.destroy');

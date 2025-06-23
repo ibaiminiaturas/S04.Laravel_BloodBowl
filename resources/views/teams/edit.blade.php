@@ -12,19 +12,17 @@
 
       <!-- Nombre -->
       <div>
-        <label for="name" class="block font-semibold mb-1">Nombre</label>
+        <label for="team_name" class="block font-semibold mb-1">Nombre</label>
         <input
           type="text"
-          id="name"
-          name="name"
-          value="{{ old('name', $team->name) }}"
+          id="team_name"
+          name="team_name"
+          value="{{ old('team_name', $team->name) }}"
           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           maxlength="100"
           required
         >
-        @error('name')
-          <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-        @enderror
+
       </div>
 
       <!-- Coach -->
@@ -52,9 +50,7 @@
       <div>
         <label for="gold_remaining" class="block font-semibold mb-1">Oro restante</label>
         <p class="p-2 bg-gray-100 rounded">{{ $team->gold_remaining }}</p>
-        @error('gold_remaining')
-          <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-        @enderror
+
       </div>
 
       <div>
@@ -121,6 +117,15 @@
                     {{ session('success') }}
                 </div>
             @endif
+             @error('not_enough_spots')
+                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    
+                </div>
+             @enderror
+             @error('gold_remaining')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+             @enderror
+
   </tbody>
 </table>
 </div>

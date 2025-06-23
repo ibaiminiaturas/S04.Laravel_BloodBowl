@@ -22,7 +22,7 @@
             </a>
         </div>
     </div>
-</nav>
+    </nav>
 
     <main class="container mx-auto p-4">
         @yield('content')

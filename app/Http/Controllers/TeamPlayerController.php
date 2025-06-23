@@ -54,9 +54,15 @@ class TeamPlayerController extends Controller
             return back()->withErrors(['gold_remaining' => 'No hay oro suficiente para añadir este jugador.'])->withInput();
         }
 
+        $count = TeamPlayer::where('team_id', $team->id)->where('player_type_id', $playerType->id)->count();
+        if ($count === $playerType->max_per_team) {
+            return back()
+    ->withErrors(['not_enough_spots' => 'No puedes añador mas jugadores de ese tipo. Maximo ' . $playerType->max_per_team . ' por equipo'])
+    ->withInput();
+        }
+
         $team->gold_remaining -=  $playerType->cost;
         $team->save();
-
         $team->players()->create($validated);
 
         return back()->with('success', 'Jugador ' . $validated['name'] . ' añadido con éxito.');

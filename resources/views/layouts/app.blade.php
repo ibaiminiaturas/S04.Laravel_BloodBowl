@@ -1,41 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blood Bowl - Gestión Coaches</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="font-sans antialiased bg-gray-100">
+    @include('layouts.navigation')
 
-    <<nav class="bg-blue-700 p-4 text-white">
-    <div class="container mx-auto flex justify-between items-center">
-        <a class="font-bold text-xl" href="#">Blood Bowl</a>
-        <div class="flex space-x-3">
-                        <a href="{{ route('rosters.skills') }}"
-               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
-                Habilidades
-            </a>
-            
-            <a href="{{ route('rosters.index') }}"
-               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
-                Rosters
-            </a>
-            <a href="{{ route('coaches.index') }}"
-               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
-                Entrenadores
-            </a>
-            <a href="{{ route('teams.index') }}"
-               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition">
-                Equipos
-            </a>
-        </div>
-    </div>
-    </nav>
-
-    <main class="container mx-auto p-4">
+    <main class="py-6 px-4 sm:px-6 lg:px-8">
         @yield('content')
     </main>
-
 </body>
 </html>

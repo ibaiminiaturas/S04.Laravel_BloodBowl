@@ -14,7 +14,7 @@ class NewPlayer extends Component
     public Team $team;
     public bool $showForm = false;
     public array $availableSlots = [];
-
+    public bool $isEdit = true;
     public $playerTypes;
     // Aquí Laravel hace el "route model binding" automático y te pasa el Team
     public function mount(Team $team)
@@ -34,6 +34,8 @@ class NewPlayer extends Component
             $used = $existingCounts[$type->id] ?? 0;
             $this->availableSlots[$type->id] = $type->max_per_team - $used;
         }
+        $this->isEdit = true;
+
     }
     public function toggleForm()
     {

@@ -134,13 +134,14 @@
         </button>
         @if ($showForm)
             <div id="addPlayerForm" class="mt-4">
+
                 @include('team_players._form', [
                     'player' => null,
                     'team' => $team,
                     'playerTypes' => $playerTypes,
                     'editableFields' => ['name', 'jersey_number', 'experience', 'player_type_id']
                 ])
-                </div>
+                        </div>
         @endif
     
       </div>

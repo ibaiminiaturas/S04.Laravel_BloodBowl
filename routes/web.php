@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\NewPlayer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerTypeController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamPlayerController;
 use App\Http\Controllers\RosterInfoController;
-use App\Livewire\Counter;
+
 
 
 Route::get('/', function () {
@@ -15,8 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/counter', Counter::class);
-
+Route::get('/counter', NewPlayer::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -26,11 +26,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    Route::resource('teams', TeamController::class);
+    Route::get('teams/{team}/edit', NewPlayer::class)->name('teams.edit');
     Route::get('/player-types', [PlayerTypeController::class, 'index']);
 
     Route::resource('coaches', CoachController::class);
 
-    Route::resource('teams', TeamController::class);
+
 
     Route::resource('team_players', TeamPlayerController::class)->only(['store', 'update', 'destroy']);
 

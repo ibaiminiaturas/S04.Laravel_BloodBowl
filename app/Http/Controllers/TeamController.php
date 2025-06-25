@@ -10,6 +10,8 @@ use App\Models\Coach;
 use App\Models\Skill;
 use Illuminate\Validation\Rule;
 
+
+
 class TeamController extends Controller
 {
     /**
@@ -104,6 +106,6 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         $team->delete();
-        return redirect()->route('teams.index')->with('success', 'Team '  . $team->name . ' eliminado correctamente');
+        return redirect()->route('teams.index')->with('success', 'Team ' . $team->name . ' eliminado correctamente');
     }
 }

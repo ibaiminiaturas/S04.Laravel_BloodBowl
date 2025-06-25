@@ -7,11 +7,15 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamPlayerController;
 use App\Http\Controllers\RosterInfoController;
+use App\Livewire\Counter;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/counter', Counter::class);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -41,4 +45,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -31,19 +31,21 @@ class TeamPlayerController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:100',
             'jersey_number' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                    'max:99',
-                    Rule::unique('team_players')->where(function ($query) use ($team) {
-                        return $query->where('team_id', $team->id);
-                    }),
-             ],
+                'required',
+                'integer',
+                'min:1',
+                'max:99',
+                Rule::unique('team_players')->where(function ($query) use ($team) {
+                    return $query->where('team_id', $team->id);
+                }),
+            ],
             'player_type_id' => 'required|exists:player_types,id',
-             'experience' => 'required|integer|min:0',
+            'experience' => 'required|integer|min:0',
+        ], [
+            'jersey_number.unique' => 'Este número ya está asignado a otro jugador de este equipo.',
         ]);
-        $validated['team_id'] = $team->id;
 
+        $validated['team_id'] = $team->id;
         if (TeamPlayer::where('team_id', $validated['team_id'])->where('jersey_number', $validated['jersey_number'])->exists()) {
             return back()->withErrors(['jersey_number' => 'Ese número ya está en uso en este equipo.'])->withInput();
         }
@@ -57,11 +59,11 @@ class TeamPlayerController extends Controller
         $count = TeamPlayer::where('team_id', $team->id)->where('player_type_id', $playerType->id)->count();
         if ($count === $playerType->max_per_team) {
             return back()
-    ->withErrors(['not_enough_spots' => 'No puedes añador mas jugadores de ese tipo. Maximo ' . $playerType->max_per_team . ' por equipo'])
-    ->withInput();
+                ->withErrors(['not_enough_spots' => 'No puedes añador mas jugadores de ese tipo. Maximo ' . $playerType->max_per_team . ' por equipo'])
+                ->withInput();
         }
 
-        $team->gold_remaining -=  $playerType->cost;
+        $team->gold_remaining -= $playerType->cost;
         $team->save();
         $team->players()->create($validated);
 
@@ -85,10 +87,10 @@ class TeamPlayerController extends Controller
         $playerTypes = PlayerType::where('roster_id', $team->roster_id)->get();
 
         return view('team_players.edit', [
-          'player' => $player,
-          'team' => $team,
-          'playerTypes' => $playerTypes,
-          'editableFields' => ['name',  'experience'], // prueba con todos editables
+            'player' => $player,
+            'team' => $team,
+            'playerTypes' => $playerTypes,
+            'editableFields' => ['name', 'experience'], // prueba con todos editables
         ]);
     }
 
@@ -102,7 +104,7 @@ class TeamPlayerController extends Controller
 
         $player->save();
 
-        return redirect()->route('teams.edit', $team)->with('success', 'Jugador ' . $player->name .  ' actualizado correctamente.');
+        return redirect()->route('teams.edit', $team)->with('success', 'Jugador ' . $player->name . ' actualizado correctamente.');
     }
 
     /**

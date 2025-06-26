@@ -29,7 +29,6 @@
       min="0" max="10" value="{{ old('experience', $player?->experience) }}" @if(!in_array('experience', $editableFields)) readonly @endif required>
   </div>
 
-
   <div class="mb-2">
     <label for="player_type_id" class="block font-semibold">Tipo de jugador:</label>
     <select name="player_type_id" id="player_type_id"

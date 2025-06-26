@@ -66,6 +66,10 @@
             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
         @enderror
 
+        @error('jersey_number')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+        @enderror
+
         <table class="min-w-full border table-fixed w-full text-sm text-left">
             <thead class="bg-gray-50">
                 <tr>

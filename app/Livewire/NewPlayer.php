@@ -4,8 +4,7 @@ namespace App\Livewire;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Team;
-use App\Models\Coach;
-use App\Models\Roster;
+
 
 #[Layout('layouts.app')]
 class NewPlayer extends Component
@@ -20,8 +19,6 @@ class NewPlayer extends Component
     public function mount(Team $team)
     {
         $this->team = $team;
-        $coaches = Coach::all();
-        $rosters = Roster::all();
         $this->playerTypes = $this->team->roster->playerTypes;
 
         $existingCounts = $this->team->players()
@@ -44,7 +41,7 @@ class NewPlayer extends Component
 
     public function render()
     {
-        return view('livewire.newplayer')->layout('layouts.app');
+        return view('livewire.newplayer');
 
     }
 }

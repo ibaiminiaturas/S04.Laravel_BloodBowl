@@ -1,13 +1,13 @@
 <div>
     <div class="max-w-7xl mx-auto mt-6 px-4">
 
-        <!-- Formulario para cambiar nombre equipo -->
+
         <form action="{{ route('teams.update', $team) }}" method="POST"
             class="mb-6 bg-white p-6 rounded shadow flex flex-wrap items-center gap-6">
             @csrf
             @method('PUT')
 
-            <!-- Contenedor input + label -->
+
             <div class="flex flex-col flex-grow min-w-[220px] max-w-xl">
                 <label for="team_name" class="text-gray-600 font-semibold mb-1">Nombre del equipo</label>
                 <input id="team_name" name="team_name" type="text" value="{{ old('team_name', $team->name) }}"
@@ -18,13 +18,13 @@
                 @enderror
             </div>
 
-            <!-- Botón actualizado para que esté alineado verticalmente con input -->
+
             <button type="submit"
                 class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 whitespace-nowrap self-end">
                 Actualizar nombre
             </button>
 
-            <!-- Otros datos del equipo a la derecha -->
+
             <div class="flex flex-wrap gap-6 ml-auto min-w-[320px]">
                 <div class="flex flex-col min-w-[150px]">
                     <span class="text-gray-600 font-semibold mb-1">Entrenador</span>
@@ -48,7 +48,7 @@
     </div>
 
 
-    <!-- Tabla jugadores -->
+
     <div class="bg-white p-4 rounded shadow overflow-x-auto">
         <h2 class="text-xl font-bold mb-4 text-center">Jugadores</h2>
 
@@ -141,7 +141,7 @@
                     'playerTypes' => $playerTypes,
                     'editableFields' => ['name', 'jersey_number', 'experience', 'player_type_id']
                 ])
-                        </div>
+                                </div>
         @endif
     
       </div>

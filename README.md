@@ -39,13 +39,15 @@ DB_USERNAME= **tu usuario **
 DB_PASSWORD= **tu password**
 
 
-para contestar al correo de verificacion de mail usar:
+para contestar al correo de verificacion de mail:
+
+crear usuario en mailtrap.io
 
 MAIL_MAILER=smtp
 MAIL_HOST=sandbox.smtp.mailtrap.io
 MAIL_PORT=2525
-MAIL_USERNAME=c6558eaa9537de
-MAIL_PASSWORD=85c8************ (se proporcionará por correo)
+MAIL_USERNAME=**tu usuario de mailtrap**
+MAIL_PASSWORD=**tu contraseña de mailtrap**
 MAIL_SCHEME=null
 MAIL_FROM_ADDRESS="verify@bloodbowl.com"
 MAIL_FROM_NAME="${APP_NAME}"
